@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>운세 보는 챗도지</title>
+  </head>
+  <body>
+    <button onClick="sendFortuneRequest()">요청하기</button>
+    <script>
+      async function sendFortuneRequest() {
+        try {
+          const response = await fetch("http://localhost:3000/fortuneTell", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ name: "John" }),
+          });
+
+          if (!response.ok) {
+            throw new Error("Request failed with status " + response.status);
+          }
+
+          const result = await response.json();
+          console.log("Response:", result);
+        } catch (error) {
+          console.error("Error:", error);
+        }
+      }
+    </script>
+  </body>
+</html>
